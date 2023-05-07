@@ -13,7 +13,8 @@ class Game {
              int height,
              const std::string& title,
              const int cellSize);
-        
+
+        void loadGrid();
         void run();
         
     private:

@@ -1,4 +1,5 @@
 #include "game.hpp"
+#include <iostream>
 
 Game::Game(int width, 
            int height, 
@@ -7,9 +8,12 @@ Game::Game(int width,
             window(sf::VideoMode(width, height), title),
             grid(width / cellSize, height / cellSize, sf::Vector2f(cellSize, cellSize)),
             isRunning(false) {
-                grid.draw(window);
                 window.setFramerateLimit(60);
             } 
+
+void Game::loadGrid() {
+    grid.loadGrid();
+}
 
 void Game::run() {
     while (window.isOpen()) {
@@ -47,6 +51,7 @@ void Game::update() {
 
 void Game::render() {
     window.clear();
-    grid.draw(window);
+    grid.loadGrid();
+    window.draw(grid);
     window.display();
 }

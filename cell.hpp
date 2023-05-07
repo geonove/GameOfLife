@@ -4,21 +4,14 @@
 #include <SFML/Graphics.hpp>
 class Cell {
     public:
-        Cell(const sf::Vector2f& size);
-
-        void setPosition(const sf::Vector2f& position);
-
-        void setColor();
-
-        void draw(sf::RenderWindow& w) const;
+        Cell();
 
         bool getCurrState() const;
         bool getNextState() const;
         void setCurrState(bool state);
         void setNextState(bool state);
+        void updateState();
     private:
-        // Cell shape
-        sf::RectangleShape shape;
         // Current state
         bool currState; 
         // Next state

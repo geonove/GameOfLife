@@ -1,19 +1,33 @@
 #include "cellGrid.hpp"
-
+#include <iostream>
 cellGrid::cellGrid(const int nrows_, 
                    const int ncols_, 
                    const sf::Vector2f cellSize_):
-                
-                grid(nrows_, std::vector<Cell>(ncols_, cellSize_)), 
+                grid(nrows_, std::vector<Cell>(ncols_)), 
+                drawableGrid(sf::Quads, nrows_ * ncols_ * 4),
                 nrows(nrows_),
-                ncols(ncols_) {
-                    for (int i = 0; i < nrows; i++) {
-                        for (int j = 0; j < ncols; j++) {
-                            grid[i][j].setPosition(sf::Vector2f(i * cellSize_.x, j * cellSize_.y));
-                            grid[i][j].setColor();
-                        }
-                    }
-                }
+                ncols(ncols_),
+                cellSize(cellSize_) {}
+
+void cellGrid::loadGrid() {
+    for (int i = 0; i < ncols; i++) {
+        for (int j = 0; j < nrows; j++) {
+            bool state = grid[i][j].getCurrState();
+            
+            sf::Vertex* quad = &drawableGrid[(i + j * ncols) * 4];
+            
+            quad[0].position = sf::Vector2f(i * cellSize.x + 0.5, j * cellSize.y + 0.5);
+            quad[1].position = sf::Vector2f((i + 1) * cellSize.x - 0.5, j * cellSize.y + 0.5);
+            quad[2].position = sf::Vector2f((i + 1) * cellSize.x - 0.5, (j + 1) * cellSize.y - 0.5);
+            quad[3].position = sf::Vector2f(i * cellSize.x + 0.5, (j + 1) * cellSize.y - 0.5);
+            sf::Color color = state ? sf::Color::White : sf::Color::Black;
+            quad[0].color = color;
+            quad[1].color = color;
+            quad[2].color = color;
+            quad[3].color = color;
+        } 
+    }
+}
 
 void cellGrid::update() {
     for (int i = 0; i < nrows; i++) {
@@ -25,6 +39,12 @@ void cellGrid::update() {
             }
             else if (!grid[i][j].getCurrState() && count == 3)
                 grid[i][j].setNextState(true);
+        }
+    }
+
+    for (int i = 0; i < nrows; i++) {
+        for (int j = 0; j < ncols; j++) {
+            grid[i][j].updateState();
         }
     }
 }
@@ -62,13 +82,10 @@ void cellGrid::resetToFull() {
 }
 
 
-void cellGrid::draw(sf::RenderWindow& w) {
-    for (int i = 0; i < nrows; i++) {
-        for (int j = 0; j < ncols; j++) {
-            grid[i][j].draw(w);
-            grid[i][j].setCurrState(grid[i][j].getNextState());
-        }
-    }
+void cellGrid::draw(sf::RenderTarget& window, sf::RenderStates states) const {
+    states.transform *= getTransform();
+    
+    window.draw(drawableGrid);
 }
 
 int cellGrid::countAliveNeighbors(int i, int j) const {
