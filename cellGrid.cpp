@@ -7,7 +7,9 @@ cellGrid::cellGrid(const int nrows_,
                 drawableGrid(sf::Quads, nrows_ * ncols_ * 4),
                 nrows(nrows_),
                 ncols(ncols_),
-                cellSize(cellSize_) {}
+                cellSize(cellSize_) {
+                    // std::cout << "Number of Cells: " << nrows * ncols << std::endl; 
+                }
 
 void cellGrid::loadGrid() {
     for (int i = 0; i < ncols; i++) {
@@ -55,7 +57,7 @@ void cellGrid::randomize() {
             grid[i][j].setCurrState(false);
             grid[i][j].setNextState(false);
             
-            if (rand() % 10 == 0) {
+            if (rand() % 5 == 0) {
                 grid[i][j].setCurrState(true);
                 grid[i][j].setNextState(true);
             }
@@ -79,6 +81,14 @@ void cellGrid::resetToFull() {
             grid[i][j].setNextState(true);
         }
     }
+}
+
+void cellGrid::setCellState(const sf::Vector2i mousePos) {
+    int i = mousePos.x / 10; 
+    int j = mousePos.y / 10; 
+
+    grid[i][j].setCurrState(!grid[i][j].getCurrState());
+    grid[i][j].setNextState(grid[i][j].getCurrState());
 }
 
 

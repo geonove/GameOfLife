@@ -8,7 +8,7 @@ Game::Game(int width,
             window(sf::VideoMode(width, height), title),
             grid(width / cellSize, height / cellSize, sf::Vector2f(cellSize, cellSize)),
             isRunning(false) {
-                window.setFramerateLimit(60);
+                //window.setFramerateLimit(60);
             } 
 
 void Game::loadGrid() {
@@ -43,6 +43,13 @@ void Game::processEvents() {
                     isRunning = true;
                 if (isRunning && sf::Keyboard::isKeyPressed(sf::Keyboard::P))
                     isRunning = false;
+            }
+            else if (event.type == sf::Event::MouseButtonPressed) {
+                if (!isRunning && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                    grid.randomize();
+                    //sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+                    //grid.setCellState(mousePosition);
+                }
             }
             
         }
