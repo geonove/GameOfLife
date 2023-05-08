@@ -24,6 +24,8 @@ class Game {
         cellGrid grid;
         // Game state
         bool isRunning; 
+        // Clock to compute frame rate
+        sf::Clock clock;
 
 
         void processEvents();

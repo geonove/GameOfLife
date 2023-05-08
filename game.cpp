@@ -17,6 +17,9 @@ void Game::loadGrid() {
 
 void Game::run() {
     while (window.isOpen()) {
+        float time = clock.restart().asSeconds();
+        float fps = 1.0f / time;
+        //std::cout << fps << " fps" << std::endl;
         processEvents();
         if (isRunning)
             update();
