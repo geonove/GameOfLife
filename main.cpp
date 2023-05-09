@@ -2,10 +2,17 @@
 #include <iostream>
 #include "game.hpp"
 #include <string>
-int main () {
-    const int winWidth = 1000;
-    const int winHeight = 1000;
-    const int cellSize = 10;
+int main (int argc, char* argv[]) {
+    int winWidth = 1500;
+    int winHeight = 900;
+    int cellSize = 5;
+    std::cout << argc << std::endl;
+    if (argc == 4) {
+        
+        winWidth = std::atoi(argv[1]);
+        winHeight = std::atoi(argv[2]);
+        cellSize = std::atoi(argv[3]);
+    }
     std::string title = "Game of Life";
     Game game(winWidth, winHeight, title, cellSize);
     game.loadGrid();

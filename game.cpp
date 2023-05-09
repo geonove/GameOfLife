@@ -6,7 +6,7 @@ Game::Game(int width,
            const std::string& title, 
            const int cellSize):
             window(sf::VideoMode(width, height), title),
-            grid(width / cellSize, height / cellSize, sf::Vector2f(cellSize, cellSize)),
+            grid(height / cellSize, width / cellSize, sf::Vector2f(cellSize, cellSize)),
             isRunning(false) {
                 //window.setFramerateLimit(60);
             } 
@@ -46,9 +46,9 @@ void Game::processEvents() {
             }
             else if (event.type == sf::Event::MouseButtonPressed) {
                 if (!isRunning && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                    grid.randomize();
-                    //sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-                    //grid.setCellState(mousePosition);
+                    sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+                    std::cout << "Mouse position: " << mousePosition.x << " " << mousePosition.y << std::endl;
+                    grid.setCellState(mousePosition);
                 }
             }
             

@@ -12,16 +12,17 @@ cellGrid::cellGrid(const int nrows_,
                 }
 
 void cellGrid::loadGrid() {
-    for (int i = 0; i < ncols; i++) {
-        for (int j = 0; j < nrows; j++) {
+    for (int i = 0; i < nrows; i++) {
+        for (int j = 0; j < ncols; j++) {
             bool state = grid[i][j].getCurrState();
             
-            sf::Vertex* quad = &drawableGrid[(i + j * ncols) * 4];
+            sf::Vertex* quad = &drawableGrid[(i * ncols + j) * 4];
             
-            quad[0].position = sf::Vector2f(i * cellSize.x + 0.5, j * cellSize.y + 0.5);
-            quad[1].position = sf::Vector2f((i + 1) * cellSize.x - 0.5, j * cellSize.y + 0.5);
-            quad[2].position = sf::Vector2f((i + 1) * cellSize.x - 0.5, (j + 1) * cellSize.y - 0.5);
-            quad[3].position = sf::Vector2f(i * cellSize.x + 0.5, (j + 1) * cellSize.y - 0.5);
+            double spacing = 0.5;
+            quad[0].position = sf::Vector2f(j * cellSize.x + spacing, i * cellSize.y + spacing);
+            quad[1].position = sf::Vector2f((j + 1) * cellSize.x - spacing, i * cellSize.y + spacing);
+            quad[2].position = sf::Vector2f((j + 1) * cellSize.x - spacing, (i + 1) * cellSize.y - spacing);
+            quad[3].position = sf::Vector2f(j * cellSize.x + spacing, (i + 1) * cellSize.y - spacing);
             sf::Color color = state ? sf::Color::White : sf::Color::Black;
             quad[0].color = color;
             quad[1].color = color;
@@ -57,7 +58,7 @@ void cellGrid::randomize() {
             grid[i][j].setCurrState(false);
             grid[i][j].setNextState(false);
             
-            if (rand() % 5 == 0) {
+            if (rand() % 2 == 0) {
                 grid[i][j].setCurrState(true);
                 grid[i][j].setNextState(true);
             }
@@ -84,8 +85,8 @@ void cellGrid::resetToFull() {
 }
 
 void cellGrid::setCellState(const sf::Vector2i mousePos) {
-    int i = mousePos.x / 10; 
-    int j = mousePos.y / 10; 
+    int j = mousePos.x / cellSize.x; 
+    int i = mousePos.y / cellSize.y; 
 
     grid[i][j].setCurrState(!grid[i][j].getCurrState());
     grid[i][j].setNextState(grid[i][j].getCurrState());
