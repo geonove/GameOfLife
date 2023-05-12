@@ -12,7 +12,7 @@ class cellGrid : public sf::Drawable, public sf::Transformable{
     void randomize(); 
     void resetToEmpty();
     void resetToFull();
-    void setCellState(const sf::Vector2i mousePos);
+    Cell* getCellFromMouse(const sf::Vector2i mousePos);
     void updateOneCell();
     virtual void draw(sf::RenderTarget& window, sf::RenderStates) const override;
     

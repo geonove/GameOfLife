@@ -6,6 +6,7 @@
 #include "cellGrid.hpp"
 #include <vector>
 #include <string>
+#include <unordered_set>
 
 class Game {
     public: 
@@ -27,6 +28,8 @@ class Game {
         // Clock to compute frame rate
         sf::Clock clock;
 
+        // Visited cells
+        std::unordered_set<Cell*> visited;
 
         void processEvents();
         void update();

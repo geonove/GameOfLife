@@ -6,7 +6,6 @@ int main (int argc, char* argv[]) {
     int winWidth = 1500;
     int winHeight = 900;
     int cellSize = 5;
-    std::cout << argc << std::endl;
     if (argc == 4) {
         
         winWidth = std::atoi(argv[1]);

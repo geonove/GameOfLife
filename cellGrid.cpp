@@ -84,12 +84,14 @@ void cellGrid::resetToFull() {
     }
 }
 
-void cellGrid::setCellState(const sf::Vector2i mousePos) {
+Cell* cellGrid::getCellFromMouse(const sf::Vector2i mousePos) {
     int j = mousePos.x / cellSize.x; 
     int i = mousePos.y / cellSize.y; 
-
+    /*
     grid[i][j].setCurrState(!grid[i][j].getCurrState());
     grid[i][j].setNextState(grid[i][j].getCurrState());
+    */
+    return &grid[i][j];
 }
 
 
