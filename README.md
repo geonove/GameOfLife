@@ -33,3 +33,10 @@ The "Game of Life" follows these rules:
 2. Any live cell with two or three live neighbors lives on to the next generation.
 3. Any live cell with more than three live neighbors dies, as if by overpopulation.
 4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+
+## Preview
+
+https://github.com/geonove/GameOfLife/assets/100306924/18aff3a0-3cb4-4760-8f54-1691ec8d61c8
+
+
+
