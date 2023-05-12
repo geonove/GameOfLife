@@ -36,7 +36,8 @@ The "Game of Life" follows these rules:
 
 ## Preview
 
-https://github.com/geonove/GameOfLife/assets/100306924/18aff3a0-3cb4-4760-8f54-1691ec8d61c8
+https://github.com/geonove/GameOfLife/assets/100306924/19a97a95-4f31-4284-853d-3954000f1f70
+
 
 
 
