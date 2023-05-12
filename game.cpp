@@ -49,8 +49,9 @@ void Game::processEvents() {
         if (event.type == sf::Event::MouseButtonPressed || sf::Mouse::isButtonPressed(sf::Mouse::Left) ) {
             if (!isRunning ) {
                 sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+                
                 Cell* pointedCell = grid.getCellFromMouse(mousePosition);
-                if (visited.find(pointedCell) == visited.end()) {
+                if (checkMousePosition(mousePosition) && visited.find(pointedCell) == visited.end()) {
                     pointedCell->setCurrState(!pointedCell->getCurrState());
                     pointedCell->setNextState(pointedCell->getCurrState());
                     visited.insert(pointedCell);
@@ -73,4 +74,8 @@ void Game::render() {
     grid.loadGrid();
     window.draw(grid);
     window.display();
+}
+
+bool Game::checkMousePosition(sf::Vector2i mousePos) {
+    return mousePos.x >= 0 && mousePos.x <= window.getSize().x && mousePos.y >= 0 && mousePos.y <= window.getSize().y;
 }

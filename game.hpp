@@ -34,5 +34,6 @@ class Game {
         void processEvents();
         void update();
         void render();
+        bool checkMousePosition(sf::Vector2i mousePos);
 };
 #endif
