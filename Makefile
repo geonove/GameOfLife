@@ -21,4 +21,4 @@ run:
 	./game
 
 new: distclean main.o main run
-	
+ 

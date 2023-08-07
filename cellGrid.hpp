@@ -13,7 +13,6 @@ class cellGrid : public sf::Drawable, public sf::Transformable{
     void resetToEmpty();
     void resetToFull();
     Cell* getCellFromMouse(const sf::Vector2i mousePos);
-    void updateOneCell();
     virtual void draw(sf::RenderTarget& window, sf::RenderStates) const override;
     
     private:
